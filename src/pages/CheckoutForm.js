@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-
-const stripePromise = loadStripe(
-  'pk_test_51IQKncEXawQ3zSFqMyx5IgXbNgO3Vg5TpH5vSibV6Y7StRyLz5zjQahBy6G09k9RYdbUoe838y5fVESIsNeZtSwf00y5IUe2ke'
-);
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 export const CheckoutForm = ({ history }) => {
   const stripe = useStripe();
@@ -76,16 +70,13 @@ export const CheckoutForm = ({ history }) => {
   };
 
   return (
-    <Elements stripe={stripePromise}>
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        {/* <input type='email' placeholder='input email' /> */}
-        <button type='submit' disabled={!stripe}>
-          Pay
-        </button>
-        {error && <h3>{error.message}</h3>}
-      </form>
-    </Elements>
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type='submit' disabled={!stripe}>
+        Pay
+      </button>
+      {error && <h3>{error.message}</h3>}
+    </form>
   );
 };
 
