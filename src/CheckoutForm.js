@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 
-const CheckoutForm = ({ match }) => {
+const stripePromise = loadStripe(
+  'pk_test_51IQKncEXawQ3zSFqMyx5IgXbNgO3Vg5TpH5vSibV6Y7StRyLz5zjQahBy6G09k9RYdbUoe838y5fVESIsNeZtSwf00y5IUe2ke'
+);
+
+export const CheckoutForm = ({ history }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [error, setError] = useState(null);
-  // const [product, setProduct] = useState({
-  //   name: 'Test Product',
-  //   price: 10,
-  //   productBy: 'Roaster X',
-  // });
+
+  const id = '6045c6e02213ec9afb48718c';
 
   const getSecret = async () => {
     try {
-      //pass in params into the route that will be /order/pay/:id
-      const res = await axios.get('http://localhost:5000/order/pay');
-      const secret = res.data.client_secret;
-      console.log(secret);
-      return secret;
+      const { data } = await axios.get(`http://localhost:5000/order/pay/${id}`);
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onSuccess = async () => {
+    try {
+      const { data } = await axios.post('http://localhost:5000/order/success', {
+        id: id,
+      });
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -48,13 +59,16 @@ const CheckoutForm = ({ match }) => {
     );
 
     if (error) {
-      console.log(error.message);
+      console.log(error);
       setError(error);
     } else {
       if (paymentIntent.status === 'succeeded') {
         //redirect to the order confirmation page or the orders section of their profile
-        console.log('success');
-        console.log(paymentIntent);
+        const order = onSuccess();
+        if (order) {
+          console.log(order);
+          history.push(`/order/success/${order._id}`);
+        }
       } else {
         console.log('fail');
       }
@@ -62,14 +76,16 @@ const CheckoutForm = ({ match }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      {/* <input type='email' placeholder='input email' /> */}
-      <button type='submit' disabled={!stripe}>
-        Pay
-      </button>
-      {error && <h3>{error.message}</h3>}
-    </form>
+    <Elements stripe={stripePromise}>
+      <form onSubmit={handleSubmit}>
+        <CardElement />
+        {/* <input type='email' placeholder='input email' /> */}
+        <button type='submit' disabled={!stripe}>
+          Pay
+        </button>
+        {error && <h3>{error.message}</h3>}
+      </form>
+    </Elements>
   );
 };
 

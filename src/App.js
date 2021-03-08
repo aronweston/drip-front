@@ -6,20 +6,22 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Quiz from './pages/Quiz';
 import Recom from './pages/Recom';
+import CheckoutForm from './CheckoutForm';
+import OrderSuccess from './pages/OrderSuccess';
 
 function App() {
   return (
     <>
       <Router>
         <NavBar />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/landing' component={Landing} />
-          <Route path='/cart' component={Cart} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/quiz' component={Quiz} />
-          <Route exact path='/recommendation' component={Recom} />
-        </Switch>
+        <Route exact path='/' component={CheckoutForm} />
+        <Route path='/checkout' component={CheckoutForm} />
+        <Route path='/landing' component={Landing} />
+        <Route path='/cart' component={Cart} />
+        <Route path='/login' component={Login} />
+        <Route path='/quiz' component={Quiz} />
+        <Route path='/recommendation' component={Recom} />
+        <Route path='/order/success/:id' component={OrderSuccess} />
       </Router>
     </>
   );
