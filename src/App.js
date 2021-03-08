@@ -1,32 +1,27 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react';
+//components
 import NavBar from './components/NavBar';
+import SubNav from './components/SubNav';
+import Home from './pages/Home';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import OrderSuccess from './pages/OrderSuccess';
-import CheckoutForm from './pages/CheckoutForm';
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-const stripePromise = loadStripe(
-  'pk_test_51IQKncEXawQ3zSFqMyx5IgXbNgO3Vg5TpH5vSibV6Y7StRyLz5zjQahBy6G09k9RYdbUoe838y5fVESIsNeZtSwf00y5IUe2ke'
-);
+import Checkout from './pages/PaymentForm';
 
 function App() {
   return (
     <>
       <Router>
+        <SubNav />
         <NavBar />
-        <Route
-          render={(props) => (
-            <Elements stripe={stripePromise}>
-              <CheckoutForm {...props} />
-            </Elements>
-          )}
-          path={'/checkout'}
-        />
-        <Route path='/landing' component={Landing} />
-        <Route path='/login' component={Login} />
-        <Route path='/checkout/success/:id' component={OrderSuccess} />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/checkout' component={Checkout} />
+          <Route path='/landing' component={Landing} />
+          <Route path='/login' component={Login} />
+          <Route path='/checkout/success/:id' component={OrderSuccess} />
+        </Switch>
       </Router>
     </>
   );
