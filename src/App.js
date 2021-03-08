@@ -6,6 +6,7 @@ import SubNav from './components/SubNav';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import OrderSuccess from './pages/OrderSuccess';
 import Checkout from './pages/PaymentForm';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/checkout' component={Checkout} />
           <Route path='/landing' component={Landing} />
           <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
           <Route path='/checkout/success/:id' component={OrderSuccess} />
         </Switch>
       </Router>

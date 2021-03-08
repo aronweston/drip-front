@@ -30,6 +30,12 @@ const NavBar = () => {
             to='/login'>
             Login
           </NavLink>
+          <NavLink
+            activeClassName='text-red'
+            className='inline-flex items-center py-1 px-1 my-3 text-white'
+            to='/register'>
+            Sign Up
+          </NavLink>
         </nav>
       </div>
     </header>

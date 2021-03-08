@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container } from '../components/Styles';
-import axios from 'axios';
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    get();
-  }, []);
-
-  const get = async () => {
-    try {
-      const res = await axios.get('https://dripapi.herokuapp.com/coffee');
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
-    //TODO: login action to dispatch to the backend and login the user
-    //POST /user/login
+    console.log(name, email, password);
   };
 
   return (
@@ -36,16 +21,17 @@ const Login = () => {
             <div className='md:w-full px-3'>
               <label
                 className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'
-                for='grid-password'>
-                Email
+                htmlFor='register-first-name'>
+                First Name
               </label>
               <input
                 className='appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'
-                id='grid-password'
-                type='email'
-                placeholder='Email'
+                id='register-first-name'
+                name='register-first-name'
+                type='text'
+                placeholder='Enter your name'
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setName(e.target.value);
                 }}
               />
               <p className='text-grey-dark text-xs italic'></p>
@@ -55,12 +41,34 @@ const Login = () => {
             <div className='md:w-full px-3'>
               <label
                 className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'
-                for='grid-password'>
+                htmlFor='register-password'>
+                Email
+              </label>
+              <input
+                className='appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'
+                id='register-email'
+                name='register-email'
+                type='email'
+                placeholder='Email'
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <p className='text-grey-dark text-xs italic'></p>
+            </div>
+          </div>
+
+          <div className='-mx-3 md:flex mb-6'>
+            <div className='md:w-full px-3'>
+              <label
+                className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'
+                htmlFor='register-password'>
                 Password
               </label>
               <input
                 className='appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'
-                id='grid-password'
+                id='register-password'
+                name='register-password'
                 type='password'
                 placeholder='************'
                 onChange={(e) => {
@@ -71,7 +79,7 @@ const Login = () => {
             </div>
           </div>
           <button className='bg-green-900 py-3 px-4 mb-3 rounded text-white'>
-            Login
+            Sign Up
           </button>
         </form>
       </Container>
@@ -79,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
