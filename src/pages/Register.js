@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
-import { Container } from '../components/Styles';
+import React, { useState, useEffect } from 'react';
+import { Container, Error, Loading } from '../components/Styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { userRegister } from '../actions/userActions';
 
-const Register = () => {
+const Register = ({ history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const registerState = useSelector((state) => state.register);
+  const { error, loading, success, user } = registerState;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    }
+  }, [user, history]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, email, password);
+    if (name && email && password) {
+      dispatch(userRegister(name, email, password));
+    }
   };
 
   return (
@@ -17,6 +32,8 @@ const Register = () => {
         <form
           onSubmit={handleSubmit}
           className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2'>
+          {loading && <Loading>Loading...</Loading>}
+          {error && <Error>{error}</Error>}
           <div className='-mx-3 md:flex mb-6'>
             <div className='md:w-full px-3'>
               <label

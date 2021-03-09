@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from '../components/Styles';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    get();
-  }, []);
-
-  const get = async () => {
-    try {
-      const res = await axios.get('https://dripapi.herokuapp.com/coffee');
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();

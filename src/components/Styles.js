@@ -131,4 +131,20 @@ export const Form = () => {
   );
 };
 
-export default { Container, ProductCard };
+export const Error = ({ children }) => {
+  return (
+    <div className='-mx-3 md:flex mb-6 text-center bg-red-400 rounded py-3 px-4 mb-3 text-white'>
+      {children}
+    </div>
+  );
+};
+
+export const Loading = ({ children }) => {
+  return (
+    <div className='-mx-3 md:flex mb-6 text-center bg-green-400 rounded py-3 px-4 mb-3 text-white'>
+      {children}
+    </div>
+  );
+};
+
+export default { Container, ProductCard, Error };

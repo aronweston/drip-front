@@ -3,6 +3,7 @@ import axios from 'axios';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+
 const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
 
 export const CheckoutForm = ({ history }) => {

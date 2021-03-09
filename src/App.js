@@ -1,5 +1,7 @@
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import URL from './url';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React from 'react';
 //components
 import NavBar from './components/NavBar';
 import SubNav from './components/SubNav';
@@ -11,14 +13,21 @@ import OrderSuccess from './pages/OrderSuccess';
 import Checkout from './pages/PaymentForm';
 
 function App() {
+  useEffect(() => {
+    axios
+      .get(URL)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <>
       <Router>
-        <SubNav />
+        {/* <SubNav /> */}
         <NavBar />
         <Switch>
           <Route path='/' exact component={Home} />
-          <Route path='/checkout' component={Checkout} />
+          {/* <Route path='/checkout' component={Checkout} /> */}
           <Route path='/landing' component={Landing} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
