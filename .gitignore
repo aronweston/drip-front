@@ -12,7 +12,6 @@
 /build
 
 #css 
-src/assets/main.css
 
 # misc
 .env
