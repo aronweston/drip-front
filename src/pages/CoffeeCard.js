@@ -1,38 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { QtyButton } from '../components/Styles';
 
 const CoffeeCard = ({ coffee }) => {
+  const [qty, setQty] = useState(0);
+  //trick: qty can't be negative or can't be higher than the amount currently in stock
+  const handleAddToCart = () => {
+    if (qty < coffee.stockQty) {
+      console.log({
+        qty: qty,
+        title: coffee.title,
+        price: coffee.price,
+        _id: coffee._id,
+      });
+    } else {
+      console.log('reached');
+    }
+  };
+
   return (
-    <div class='p-10'>
-      <div class='max-w-sm rounded overflow-hidden shadow-lg'>
-        <div>
-          <img
-            className='w-full'
-            src={coffee.image ? coffee.image : ''}
-            alt={`${coffee.title} by ${coffee.roaster.name}`}
-          />
-          <div class='px-6 py-4'>
-            <div class='font-bold text-xl mb-2'>{coffee.title}</div>
-            <p class='text-gray-700 text-base'>
-              {`${coffee.description.substring(0, 250)}...`}
-            </p>
-            <span class='text-gray-700 text-base'>
-              ${coffee.price} • {coffee.grams}g • {coffee.roaster.name}
-            </span>
+    <section>
+      <div className='max-w-sm rounded overflow-hidden shadow-lg'>
+        <img
+          className='w-full'
+          src={coffee.image ? coffee.image : ''}
+          alt={`${coffee.title} by ${coffee.roaster.name}`}
+        />
+        <div class='px-6 py-4'>
+          <div class='font-bold text-xl mb-2'>{coffee.title}</div>
+
+          <div className='flex pt-2 pb-2'>
+            <span class='text-gray-700 text-base pr-2'>${coffee.price}</span>
+            <span class='text-gray-700 text-base pr-2'>{coffee.grams}g</span>
+            <a
+              href={`/roaster/${coffee.roaster._id}`}
+              class='text-gray-700 text-base'>
+              {coffee.roaster.name}
+            </a>
           </div>
-          <div class='px-6 pt-4 pb-2'>
+          <p class='text-gray-700 text-base'>
+            {`${coffee.description.substring(0, 250)}...`}
+          </p>
+
+          <div className='flex item-center justify-between mt-3'>
+            <div className='inline-flex'>
+              <span className='mr-2 p-0 inline-block leading-{0}'>{qty}</span>
+              <QtyButton
+                el='plus'
+                disabled={qty >= coffee.stockQty}
+                onClick={() => setQty(qty + 1)}
+                width='20px'
+              />
+              <QtyButton
+                el='minus'
+                disabled={qty === 0}
+                onClick={() => setQty(qty - 1)}
+                width='20px'
+              />
+            </div>
+
+            <button
+              className='px-3 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded'
+              disabled={qty < 1}
+              onClick={handleAddToCart}>
+              Add to cart
+            </button>
+          </div>
+
+          <p className='pt-3'>
             {coffee.tastesLike.map((taste) => (
-              <span class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
+              <p class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
                 #{taste}
-              </span>
+              </p>
             ))}
-          </div>
-          <img
-            src={coffee.roaster.logo ? coffee.roaster.logo : ''}
-            alt={`The logo for ${coffee.roaster.name}`}
-          />
+          </p>
         </div>
+
+        {/* <img
+          src={coffee.roaster.logo ? coffee.roaster.logo : ''}
+          alt={`The logo for ${coffee.roaster.name}`}
+        /> */}
       </div>
-    </div>
+    </section>
   );
 };
 

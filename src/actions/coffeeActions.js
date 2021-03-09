@@ -17,10 +17,12 @@ export const getAllCoffee = () => async (dispatch) => {
 
     const { data } = await axios.get(`${API}/coffee`);
 
-    dispatch({
-      type: COFFEE_LIST_SUCCESS,
-      payload: data,
-    });
+    if (data) {
+      dispatch({
+        type: COFFEE_LIST_SUCCESS,
+        payload: data,
+      });
+    }
   } catch (error) {
     dispatch({
       type: COFFEE_LIST_FAIL,

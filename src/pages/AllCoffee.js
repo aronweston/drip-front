@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCoffee } from '../actions/coffeeActions';
+import { ProductGrid } from '../components/Styles';
 import CoffeeCard from './CoffeeCard';
 
 const AllCoffee = ({ history }) => {
@@ -13,9 +14,9 @@ const AllCoffee = ({ history }) => {
   }, []);
 
   return (
-    <main class='p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5'>
+    <ProductGrid>
       {success && coffee.map((coffee) => <CoffeeCard coffee={coffee} />)}
-    </main>
+    </ProductGrid>
   );
 };
 

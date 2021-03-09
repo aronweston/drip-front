@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Landing = () => {
-  return <div>Landing</div>;
+  return <h1>Landing page</h1>;
 };
 
 export default Landing;

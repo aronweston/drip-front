@@ -147,4 +147,67 @@ export const Loader = ({ children }) => {
   );
 };
 
-export default { Container, ProductCard, Error };
+export const ProductGrid = ({ children }) => {
+  return (
+    <main class='p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5'>
+      {children}
+    </main>
+  );
+};
+
+export const QtyButton = ({ el, width, disabled, onClick }) => {
+  if (el === 'plus') {
+    return (
+      <button disabled={disabled} onClick={onClick}>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          width={width}
+          stroke='currentColor'>
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z'
+          />
+        </svg>
+      </button>
+    );
+  } else {
+    return (
+      <button disabled={disabled} onClick={onClick}>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          width={width}
+          stroke='currentColor'>
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth={2}
+            d='M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z'
+          />
+        </svg>
+      </button>
+    );
+  }
+};
+
+export const Hero = ({ title, colour }) => {
+  return (
+    <section className='container max-w-screen-large mx-auto mb-auto container py-20 bg-gray-900'>
+      <h1>Title</h1>
+    </section>
+  );
+};
+
+// export default {
+//   Container,
+//   ProductCard,
+//   Error,
+//   ProductGrid,
+//   PlusButton,
+//   MinusCircle,
+// };

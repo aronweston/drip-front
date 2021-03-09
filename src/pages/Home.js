@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Loader, ProductCard } from '../components/Styles';
+import { Container, Hero, Loader, ProductCard } from '../components/Styles';
 import { useSelector, useDispatch } from 'react-redux';
 import AllCoffee from './AllCoffee';
 
@@ -10,6 +10,7 @@ const Home = () => {
   return (
     <div>
       {loading && <Loader>Getting you caffeinated...</Loader>}
+      <Hero />
       <AllCoffee />
     </div>
   );

@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import OrderSuccess from './pages/OrderSuccess';
 import Checkout from './pages/PaymentForm';
 import SingleCoffee from './pages/SingleCoffee';
+import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/coffee/:id' component={SingleCoffee} />
           <Route path='/checkout/success/:id' component={OrderSuccess} />
         </Switch>
+        <Footer />
       </Router>
     </>
   );
