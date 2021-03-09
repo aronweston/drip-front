@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Error, Loading } from '../components/Styles';
+import { Container, Error, Loader } from '../components/Styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { userRegister } from '../actions/userActions';
+import { register } from '../actions/userActions';
 
 const Register = ({ history }) => {
   const [name, setName] = useState('');
@@ -14,7 +14,7 @@ const Register = ({ history }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) {
+    if (user && success) {
       history.push('/');
     }
   }, [user, history]);
@@ -22,7 +22,7 @@ const Register = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name && email && password) {
-      dispatch(userRegister(name, email, password));
+      dispatch(register(name, email, password));
     }
   };
 
@@ -32,7 +32,7 @@ const Register = ({ history }) => {
         <form
           onSubmit={handleSubmit}
           className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2'>
-          {loading && <Loading>Loading...</Loading>}
+          {loading && <Loader>Loading...</Loader>}
           {error && <Error>{error}</Error>}
           <div className='-mx-3 md:flex mb-6'>
             <div className='md:w-full px-3'>

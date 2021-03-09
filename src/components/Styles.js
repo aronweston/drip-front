@@ -139,7 +139,7 @@ export const Error = ({ children }) => {
   );
 };
 
-export const Loading = ({ children }) => {
+export const Loader = ({ children }) => {
   return (
     <div className='-mx-3 md:flex mb-6 text-center bg-green-400 rounded py-3 px-4 mb-3 text-white'>
       {children}
