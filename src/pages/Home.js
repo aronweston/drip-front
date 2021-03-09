@@ -8,11 +8,14 @@ const Home = () => {
   const { loading, error } = coffee;
 
   return (
-    <div>
+    <>
       {loading && <Loader>Getting you caffeinated...</Loader>}
-      <Hero />
-      <AllCoffee />
-    </div>
+
+      <>
+        <Hero />
+        <AllCoffee />
+      </>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 //Container
 export const Container = ({ children }) => {
@@ -195,10 +196,25 @@ export const QtyButton = ({ el, width, disabled, onClick }) => {
   }
 };
 
+export const Button = ({ bg, txtColour, text, to }) => {
+  return (
+    <Link to={to}>
+      <button
+        className={`inline-flex items-center py-1 px-5 my-4 mx-0 text-${txtColour} bg-${bg} rounded text-m lowercase`}>
+        {text}
+      </button>
+    </Link>
+  );
+};
+
 export const Hero = ({ title, colour }) => {
   return (
-    <section className='container max-w-screen-large mx-auto mb-auto container py-20 bg-gray-900'>
-      <h1>Title</h1>
+    <section className='max-w-screen-large mb-auto py-20 bg-gray-900'>
+      <div className='container text-left text-white mx-auto p-10'>
+        <h1 className='text-4xl'>Drip Coffee Co</h1>
+        <p>Subscription coffee. Always fresh.</p>
+        <Button to='/signup' txtColour='black' bg='white' text='Get Started' />
+      </div>
     </section>
   );
 };
