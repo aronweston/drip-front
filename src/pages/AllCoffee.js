@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCoffee } from '../actions/coffeeActions';
+import CoffeeCard from './CoffeeCard';
 
 const AllCoffee = ({ history }) => {
   const dispatch = useDispatch();
@@ -12,18 +13,9 @@ const AllCoffee = ({ history }) => {
   }, []);
 
   return (
-    <div>
-      {success &&
-        coffee.map((coffee) => (
-          <div>
-            <span>{coffee.title}</span>
-            <img src={coffee.img ? coffee.img : ''} alt='' />
-            <span>${coffee.price}</span>
-            <span>{coffee.roaster.name}</span>
-            <img src={coffee.roaster.logo ? coffee.roaster.logo : ''} alt='' />
-          </div>
-        ))}
-    </div>
+    <main class='p-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5'>
+      {success && coffee.map((coffee) => <CoffeeCard coffee={coffee} />)}
+    </main>
   );
 };
 
