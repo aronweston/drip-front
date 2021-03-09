@@ -18,7 +18,7 @@ const SingleCoffee = ({ history }) => {
   return (
     <div>
       {loading && <Loader>Getting you caffeinated...</Loader>}
-      {/* {success &&
+      {success &&
         coffee.map((coffee) => (
           <div>
             <span>{coffee.title}</span>
@@ -27,7 +27,7 @@ const SingleCoffee = ({ history }) => {
             <span>{coffee.roaster.name}</span>
             <img src={coffee.roaster.logo ? coffee.roaster.logo : ''} alt='' />
           </div>
-        ))} */}
+        ))}
     </div>
   );
 };
