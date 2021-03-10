@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { Test } from './Test';
 
 const Landing = () => {
-  return <h1>Landing page</h1>;
+  const testFunction = (address) => {
+    console.log(address);
+  };
+
+  return <Test onSubmit={testFunction} />;
 };
 
 export default Landing;

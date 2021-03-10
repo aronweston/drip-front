@@ -10,16 +10,12 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
 
 const Checkout = () => {
-  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  // const [billing, setBilling] = useState({});
-
   const { cartItems, totalPrice } = cart;
 
   return (
     <main className='flex flex-wrap overflow-hidden'>
       <section className='w-2/3 overflow-hidden'>
-        <Delivery />
         <Elements stripe={stripePromise}>
           <StripeForm />
         </Elements>

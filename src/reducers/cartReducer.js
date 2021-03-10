@@ -13,7 +13,9 @@ export const cartReducer = (
       const newItem = action.payload;
       console.log(newItem);
       //find the item and see if it exists
-      const found = state.cartItems.find((item) => item._id === newItem._id);
+      const found = state.cartItems.find(
+        (item) => item.coffee === newItem.coffee
+      );
       if (found) {
         return { cartItems: [...state.cartItems] };
       } else {
@@ -24,7 +26,7 @@ export const cartReducer = (
       const id = action.payload;
       //search through and filter the products that don't match the id
       // console.log(id);
-      const filter = state.cartItems.filter((item) => item.coffeeId !== id);
+      const filter = state.cartItems.filter((item) => item.coffee !== id);
       return { cartItems: filter };
     case CART_ADD_TOTAL_PRICE:
       const price = action.payload;

@@ -28,7 +28,7 @@ const Delivery = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const billing = {
+    const delivery = {
       firstName,
       lastName,
       line1: address,
@@ -36,7 +36,8 @@ const Delivery = ({ onSubmit }) => {
       postCode,
       state: postalState,
     };
-    console.log(billing);
+    //here I call getDeliveryDetails
+    if (delivery) onSubmit(delivery);
   };
 
   const handleStateChange = (e) => {
@@ -102,7 +103,6 @@ const Delivery = ({ onSubmit }) => {
           />
         </FormCol>
       </FormRow>
-      <button>Submit</button>
     </Form>
   );
 };

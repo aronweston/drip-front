@@ -57,7 +57,7 @@ const Cart = () => {
                 <p>{item.title}</p>
                 <p>${item.price}</p>
                 <p>Quantity: {item.qty}</p>
-                <a onClick={() => removeItem(item._id)}>Remove</a>
+                <button onClick={() => removeItem(item.coffee)}>Remove</button>
               </div>
             </div>
           ))}

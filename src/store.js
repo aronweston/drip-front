@@ -7,7 +7,10 @@ import {
   coffeeSingleReducer,
 } from './reducers/coffeeReducer';
 import { cartReducer } from './reducers/cartReducer';
-import { stripeSecretReducer } from './reducers/orderReducer';
+import {
+  createOrderReducer,
+  // stripeSecretReducer,
+} from './reducers/orderReducer';
 
 const reducer = combineReducers({
   register: userRegisterReducer,
@@ -15,7 +18,8 @@ const reducer = combineReducers({
   allCoffee: coffeeListReducer,
   singleCoffee: coffeeSingleReducer,
   cart: cartReducer,
-  secret: stripeSecretReducer,
+  // secret: stripeSecretReducer,
+  order: createOrderReducer,
 });
 
 const getUserFromLS = localStorage.getItem('user')

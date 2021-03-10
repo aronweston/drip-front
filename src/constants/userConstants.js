@@ -4,10 +4,13 @@ export const configNoAuth = {
   },
 };
 
-export const configAuth = {
-  headers: {
-    'Content-Type': 'application/JSON',
-  },
+export const configAuth = (token) => {
+  return (configAuth = {
+    headers: {
+      'Content-Type': 'application/JSON',
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
