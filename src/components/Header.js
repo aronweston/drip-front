@@ -8,6 +8,7 @@ import {
   LogoutIcon,
   SubscriptionIcon,
   CartIcon,
+  DripLogo,
 } from '../components/Styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from './Cart';
@@ -37,8 +38,7 @@ const Header = ({ history }) => {
             activeClassName='text-white'
             className='inline-flex items-center py-1 px-1 my-3 text-white'
             to='/'>
-            drip
-            <Logo />
+            <DripLogo width='20px' />
           </NavLink>
           <nav className='flex'>
             {/* <NavLink
