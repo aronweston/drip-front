@@ -10,8 +10,8 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import OrderSuccess from './pages/OrderSuccess';
-import Checkout from './pages/PaymentForm';
 import SingleCoffee from './pages/SingleCoffee';
+import Checkout from './pages/Checkout';
 import Footer from './components/Footer';
 
 function App() {
@@ -25,16 +25,15 @@ function App() {
   return (
     <>
       <Router>
-        {/* <SubHeader /> */}
         <Header />
         <Route path='/' exact component={Home} />
-        {/* <Route path='/checkout' component={Checkout} /> */}
+        <Route path='/checkout' component={Checkout} />
         <Route path='/landing' component={Landing} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/coffee/:id' component={SingleCoffee} />
         <Route path='/checkout/success/:id' component={OrderSuccess} />
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </>
   );

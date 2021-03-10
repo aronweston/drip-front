@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { logout } from '../actions/userActions';
 import {
   UserCircle,
@@ -12,10 +12,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import Cart from './Cart';
 
-const Header = ({ history }) => {
+const Header = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const login = useSelector((state) => state.login);
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState(false);
 
   const handleLogoutClick = () => {
     dispatch(logout());
@@ -78,6 +79,8 @@ const Header = ({ history }) => {
             </span>
             <span
               onClick={() => showCart()}
+              onMouseEnter={() => setCart(true)}
+              // onMouseLeave={() => setCart(false)}
               activeClassName='text-red'
               className='inline-flex items-center py-1 px-1 my-3 text-white'>
               <CartIcon width='35px' />

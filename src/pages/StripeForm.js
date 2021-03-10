@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
-
-export const CheckoutForm = ({ history }) => {
+export const StripeForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-
   const [error, setError] = useState(null);
 
   const id = '6045c6e02213ec9afb48718c';
@@ -65,7 +60,7 @@ export const CheckoutForm = ({ history }) => {
         const order = onSuccess();
         if (order) {
           console.log(order);
-          history.push(`/order/success/${order._id}`);
+          // history.push(`/order/success/${order._id}`);
         }
       } else {
         console.log('fail');
@@ -75,19 +70,17 @@ export const CheckoutForm = ({ history }) => {
 
   if (stripe && elements) {
     return (
-      <Elements stripe={stripePromise}>
-        <form onSubmit={handleSubmit}>
-          <CardElement />
-          <button type='submit' disabled={!stripe}>
-            Pay
-          </button>
-          {error && <h3>{error.message}</h3>}
-        </form>
-      </Elements>
+      <form onSubmit={handleSubmit}>
+        <CardElement />
+        <button type='submit' disabled={!stripe}>
+          Pay
+        </button>
+        {error && <h3>{error.message}</h3>}
+      </form>
     );
   } else {
     return <h1>Loading...</h1>;
   }
 };
 
-export default CheckoutForm;
+export default StripeForm;
