@@ -24,10 +24,14 @@ const getCartItemsFromLS = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : [];
 
+const getPriceFromLS = localStorage.getItem('totalPrice')
+  ? JSON.parse(localStorage.getItem('totalPrice'))
+  : [];
+
 //Grab things from local storage and set to the combine reducer property: userLogin = userLogin
 const initialState = {
   login: { user: getUserFromLS },
-  cart: { cartItems: getCartItemsFromLS },
+  cart: { cartItems: getCartItemsFromLS, totalPrice: getPriceFromLS },
 };
 
 const middleware =

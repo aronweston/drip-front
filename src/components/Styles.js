@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { login } from '../actions/userActions';
 
 //Container
 export const Container = ({ children }) => {
@@ -208,11 +210,29 @@ export const Button = ({ bg, txtColour, text, to }) => {
 };
 
 export const Hero = ({ title, colour }) => {
+  const login = useSelector((state) => state.login);
+
   return (
     <section className='max-w-screen-large mb-auto py-20 bg-gray-900'>
       <div className='container text-left text-white mx-auto p-10'>
-        <h1 className='text-4xl'>Drip Coffee Co</h1>
-        <p>Subscription coffee. Always fresh.</p>
+        {login.user ? (
+          <>
+            <h1 className='text-4xl pb-5'>Hey {login.user.name}</h1>
+            <p>
+              <p>Welcome to Drip.</p>
+              <p>
+                Subscription coffee from quality local roasters, <br></br>all
+                around Australia.
+              </p>
+            </p>
+          </>
+        ) : (
+          <>
+            <h1 className='text-4xl'>Drip Coffee Co</h1>
+            <p>Subscription coffee. Always fresh.</p>{' '}
+          </>
+        )}
+
         <Button to='/signup' txtColour='black' bg='white' text='Get Started' />
       </div>
     </section>

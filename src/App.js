@@ -27,15 +27,13 @@ function App() {
       <Router>
         {/* <SubHeader /> */}
         <Header />
-        <Switch>
-          <Route path='/' exact component={Home} />
-          {/* <Route path='/checkout' component={Checkout} /> */}
-          <Route path='/landing' component={Landing} />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
-          <Route path='/coffee/:id' component={SingleCoffee} />
-          <Route path='/checkout/success/:id' component={OrderSuccess} />
-        </Switch>
+        <Route path='/' exact component={Home} />
+        {/* <Route path='/checkout' component={Checkout} /> */}
+        <Route path='/landing' component={Landing} />
+        <Route path='/login' component={Login} />
+        <Route path='/register' component={Register} />
+        <Route path='/coffee/:id' component={SingleCoffee} />
+        <Route path='/checkout/success/:id' component={OrderSuccess} />
         <Footer />
       </Router>
     </>

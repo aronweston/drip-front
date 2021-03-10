@@ -10,10 +10,10 @@ const CoffeeCard = ({ coffee }) => {
   const handleAddToCart = () => {
     if (qty < coffee.stockQty) {
       const cartItems = {
+        _id: coffee._id,
         qty: qty,
         title: coffee.title,
         price: coffee.price,
-        coffeeId: coffee._id,
         img: coffee.image,
       };
 
