@@ -1,6 +1,7 @@
 import axios from 'axios';
 import API from '../config/api';
 import {
+  CART_ADD_DELIVERY,
   CART_ADD_ITEM,
   CART_ADD_TOTAL_PRICE,
   CART_REMOVE_ITEM,
@@ -34,4 +35,12 @@ export const addTotalPrice = (totalPrice) => async (dispatch) => {
     payload: totalPrice,
   });
   localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+};
+
+export const addDelivery = (delivery) => async (dispatch) => {
+  dispatch({
+    type: CART_ADD_DELIVERY,
+    payload: delivery,
+  });
+  localStorage.setItem('delivery', JSON.stringify(delivery));
 };

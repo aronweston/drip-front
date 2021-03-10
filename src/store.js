@@ -7,6 +7,7 @@ import {
   coffeeSingleReducer,
 } from './reducers/coffeeReducer';
 import { cartReducer } from './reducers/cartReducer';
+import { stripeSecretReducer } from './reducers/orderReducer';
 
 const reducer = combineReducers({
   register: userRegisterReducer,
@@ -14,11 +15,16 @@ const reducer = combineReducers({
   allCoffee: coffeeListReducer,
   singleCoffee: coffeeSingleReducer,
   cart: cartReducer,
+  secret: stripeSecretReducer,
 });
 
 const getUserFromLS = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
   : null;
+
+const getDeliveryFromLS = localStorage.getItem('delivery')
+  ? JSON.parse(localStorage.getItem('delivery'))
+  : {};
 
 const getCartItemsFromLS = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
@@ -31,7 +37,11 @@ const getPriceFromLS = localStorage.getItem('totalPrice')
 //Grab things from local storage and set to the combine reducer property: userLogin = userLogin
 const initialState = {
   login: { user: getUserFromLS },
-  cart: { cartItems: getCartItemsFromLS, totalPrice: getPriceFromLS },
+  cart: {
+    cartItems: getCartItemsFromLS,
+    totalPrice: getPriceFromLS,
+    delivery: getDeliveryFromLS,
+  },
 };
 
 const middleware =

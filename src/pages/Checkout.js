@@ -15,17 +15,16 @@ const Checkout = () => {
   // const [billing, setBilling] = useState({});
 
   const { cartItems, totalPrice } = cart;
-  const getDeliveryDetails = () => {};
 
   return (
     <main className='flex flex-wrap overflow-hidden'>
       <section className='w-2/3 overflow-hidden'>
-        <Delivery onSubmit={getDeliveryDetails} />
+        <Delivery />
         <Elements stripe={stripePromise}>
           <StripeForm />
         </Elements>
       </section>
-      <section className='w-1/3 overflow-hidden bg-red-700 h-screen'>
+      <section className='w-1/3 overflow-hidden bg-red-700 h-100 y-offset-66.95'>
         {cartItems.length === 0 && <h2>Your cart is empty</h2>}
         {cartItems &&
           cartItems.map((item) => (
@@ -35,15 +34,9 @@ const Checkout = () => {
                 <p>{item.title}</p>
                 <p>${item.price}</p>
                 <p>Quantity: {item.qty}</p>
-                {/* <a onClick={() => removeItem(item._id)}>Remove</a> */}
               </div>
             </div>
           ))}
-        <button
-          // onClick={checkout}
-          className='bg-red-500 p-4 rounded w-full text-white bottom-0'>
-          Pay Now • ${totalPrice}
-        </button>
       </section>
     </main>
   );

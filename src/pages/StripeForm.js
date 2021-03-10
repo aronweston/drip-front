@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import API from '../config/api';
 
 export const StripeForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
 
-  const id = '6045c6e02213ec9afb48718c';
+  const cart = useSelector((state) => state.cart);
+  // const order = useSelector((state) => state.order);
+
+  if (cart.delivery) {
+    const { cartItems, delivery, totalPrice } = cart;
+  }
+  useEffect(() => {}, []);
+
+  //dispatch the form data with the delivery data to set it as global state
+  //dispatch a order with the cart data from global state
+  //
+  const id = '123';
 
   const getSecret = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/order/pay/${id}`);
+      const { data } = await axios.get(`${API}/order/pay/${id}`);
       return data;
     } catch (error) {
       console.error(error);
@@ -20,7 +34,7 @@ export const StripeForm = () => {
 
   const onSuccess = async () => {
     try {
-      const { data } = await axios.post('http://localhost:5000/order/success', {
+      const { data } = await axios.post(`${API}/order/success`, {
         id: id,
       });
       console.log(data);
@@ -68,19 +82,17 @@ export const StripeForm = () => {
     }
   };
 
-  if (stripe && elements) {
-    return (
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        <button type='submit' disabled={!stripe}>
-          Pay
-        </button>
-        {error && <h3>{error.message}</h3>}
-      </form>
-    );
-  } else {
-    return <h1>Loading...</h1>;
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button
+        disabled={!stripe}
+        className='bg-red-500 p-4 w-full text-white sticky bottom-0'>
+        {/* Pay Now • ${totalPrice} */} Pay Now
+      </button>
+      {error && <h3>{error.message}</h3>}
+    </form>
+  );
 };
 
 export default StripeForm;
