@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
+import { addToCart } from '../actions/cartActions';
 import { QtyButton } from '../components/Styles';
-
+import { useDispatch } from 'react-redux';
 const CoffeeCard = ({ coffee }) => {
+  const dispatch = useDispatch();
+
   const [qty, setQty] = useState(0);
   //trick: qty can't be negative or can't be higher than the amount currently in stock
   const handleAddToCart = () => {
     if (qty < coffee.stockQty) {
-      console.log({
+      const cartItems = {
         qty: qty,
         title: coffee.title,
         price: coffee.price,
-        _id: coffee._id,
-      });
+        coffeeId: coffee._id,
+        img: coffee.image,
+      };
+
+      dispatch(addToCart(cartItems));
     } else {
       console.log('reached');
     }

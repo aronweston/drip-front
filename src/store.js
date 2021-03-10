@@ -6,24 +6,34 @@ import {
   coffeeListReducer,
   coffeeSingleReducer,
 } from './reducers/coffeeReducer';
+import { cartReducer } from './reducers/cartReducer';
 
 const reducer = combineReducers({
   register: userRegisterReducer,
   login: userLoginReducer,
   allCoffee: coffeeListReducer,
   singleCoffee: coffeeSingleReducer,
+  cart: cartReducer,
 });
 
 const getUserFromLS = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
   : null;
 
+const getCartItemsFromLS = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
+  : [];
+
 //Grab things from local storage and set to the combine reducer property: userLogin = userLogin
 const initialState = {
   login: { user: getUserFromLS },
+  cart: { cartItems: getCartItemsFromLS },
 };
 
-const middleware = [thunk];
+const middleware =
+  process.env.NODE_ENV !== 'production'
+    ? [require('redux-immutable-state-invariant').default(), thunk]
+    : [thunk];
 
 const store = createStore(
   reducer,
