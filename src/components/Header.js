@@ -33,7 +33,7 @@ const Header = ({ history }) => {
   return (
     <>
       <header className='bg-gray-900'>
-        <div className='container mx-auto flex justify-between'>
+        <div className='container mx-auto flex justify-between px-10'>
           <NavLink
             activeClassName='text-white'
             className='inline-flex items-center py-1 px-1 my-3 text-white'
@@ -41,18 +41,6 @@ const Header = ({ history }) => {
             <DripLogo width='20px' />
           </NavLink>
           <nav className='flex'>
-            {/* <NavLink
-            activeClassName='text-red'
-            className='inline-flex items-center py-1 px-1 my-3 text-white'
-            to='/landing'>
-            Landing
-          </NavLink>
-          <NavLink
-            activeClassName='text-red'
-            className='inline-flex items-center py-1 px-1 my-3 text-white'
-            to='/checkout'>
-            Checkout
-          </NavLink> */}
             {login.user ? (
               <>
                 <NavLink
