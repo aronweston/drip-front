@@ -1,6 +1,5 @@
-import axios from 'axios';
-import API from '../config/api';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Form,
@@ -11,17 +10,18 @@ import {
   Error,
   Loader,
   Select,
+  Alert,
 } from '../components/Styles';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { addDelivery } from '../actions/cartActions';
-import { createOrder, getOrderSecret } from '../actions/orderActions';
 
-export const StripeForm = ({ onSubmit }) => {
+import { createOrder, payOrder } from '../actions/orderActions';
+
+export const StripeForm = () => {
   //config
+  const history = useHistory();
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-  const [error, setError] = useState(null);
 
   //delivery
   const [address, setAddress] = useState('');
@@ -41,88 +41,72 @@ export const StripeForm = ({ onSubmit }) => {
   const [postalState, setPostalState] = useState(options[0]);
   const handleStateChange = (e) => {
     setPostalState(options[e.target.value]);
-    console.log(options[e.target.value]);
   };
 
   //redux state
-  const cart = useSelector((state) => state.cart);
-  const login = useSelector((state) => state.login);
+
   const stripeState = useSelector((state) => state.stripe);
-  const order = useSelector((state) => state.order);
-  const { delivery: confirmedDelivery, error: cartError } = cart;
+  const { secret } = stripeState;
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems, totalPrice } = cart;
+
+  const login = useSelector((state) => state.login);
   const { user } = login;
-  const {
-    loading: stripeLoading,
-    success: stripeSuccess,
-    error: stripeError,
-    secret,
-  } = stripeState;
 
-  const {
-    loading: orderLoading,
-    success: orderSuccess,
-    error: orderError,
-    confirmedOrder,
-  } = order;
+  const order = useSelector((state) => state.order);
+  const { loading: orderLoading, error: orderError } = order;
 
-  //delivery state
-  const [delivery, setDelivery] = useState();
+  const confirmedOrder = useSelector((state) => state.confirmedOrder);
 
   useEffect(() => {
-    if (delivery) {
-      dispatch(addDelivery(delivery));
+    if (secret) payStripeOrder();
+  }, [secret]);
+
+  const [stripeAlert, setStripeAlert] = useState({ message: '', error: false });
+
+  const payStripeOrder = async () => {
+    const {
+      error: stripeError,
+      paymentIntent,
+    } = await stripe.confirmCardPayment(secret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+
+    if (stripeError) {
+      console.log(stripeError);
+      setStripeAlert({ message: stripeError.message, error: true });
     }
-  }, [delivery]);
+
+    if (paymentIntent && paymentIntent.status === 'succeeded') {
+      setStripeAlert({ message: paymentIntent.status, error: false });
+      dispatch(payOrder());
+      history.push(`/success/${confirmedOrder._id}`);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     //1. check if user and stripe are present
     if (!user) {
-      setError('Not logged in');
-      return;
-    } else if (!stripe || !elements) {
-      setError('no stripe');
-      return;
+      console.log('not logged in');
+    }
+    if (!stripe || !elements) {
+      console.log('no stripe');
     }
 
-    //2. set the delivery object to the order
-    setDelivery({
+    const delivery = {
       firstName,
       lastName,
       line_1: address,
       suburb,
       postCode,
       state: postalState,
-    });
+    };
 
-    //3. create order with everything in the cart
-    if (confirmedDelivery) {
-      dispatch(createOrder(cart));
-    }
-
-    if (stripeSuccess) {
-      const { error, paymentIntent } = await stripe.confirmCardPayment(secret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      });
-
-      if (error) {
-        console.log(error);
-        setError(error);
-      } else {
-        if (paymentIntent.status === 'succeeded') {
-          console.log(paymentIntent);
-          // const order = onSuccess();
-          // if (order) {
-          //   console.log(order);
-          //   // history.push(`/order/success/${order._id}`);
-          // }
-        } else {
-          console.log('fail');
-        }
-      }
-    }
+    dispatch(createOrder(delivery, cartItems, totalPrice));
   };
 
   return (
@@ -134,9 +118,7 @@ export const StripeForm = ({ onSubmit }) => {
           <Input
             name='address'
             placeholder=''
-            onChange={(e) =>
-              setAddress({ value: e.target.value, required: true })
-            }
+            onChange={(e) => setAddress(e.target.value)}
           />
         </FormCol>
       </FormRow>
@@ -146,9 +128,7 @@ export const StripeForm = ({ onSubmit }) => {
           <Input
             name='first-name'
             placeholder='John'
-            onChange={(e) =>
-              setFirstName({ value: e.target.value, required: true })
-            }
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </FormCol>
         <FormCol>
@@ -185,24 +165,20 @@ export const StripeForm = ({ onSubmit }) => {
             options={options}
           />
         </FormCol>
-        <FormRow>
-          {orderLoading && <Loader>Payment Processing.</Loader>}
-          {orderError || cartError || stripeError ? <Error>Error</Error> : null}
-        </FormRow>
+      </FormRow>
+      <FormRow>
+        <FormCol>
+          {orderLoading && !stripeAlert.error && (
+            <Loader>
+              {stripeAlert.message ? stripeAlert.message : 'payment processing'}
+            </Loader>
+          )}
+          {orderError && <Error>{orderError}</Error>}
+          {stripeAlert.error && <Error>{stripeAlert.message}</Error>}
+        </FormCol>
       </FormRow>
       <CardElement />
-      {/* <button
-        disabled={!stripe}
-        className={`${
-          confirmedOrder && !confirmedOrder.isPaid
-            ? 'bg-red-500'
-            : 'bg-green-500'
-        } p-4 w-full text-white sticky bottom-0`}>
-        {confirmedOrder && !confirmedOrder.isPaid ? 'Pay now' : 'Order Paid'}
-      </button> */}
-      <button
-        disabled={!stripe}
-        className={`bg-red-500 p-4 w-full text-white sticky bottom-0`}>
+      <button disabled={!stripe} className={`bg-red-500 p-4 w-full text-white`}>
         pay now
       </button>
     </Form>

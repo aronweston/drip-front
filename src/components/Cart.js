@@ -54,7 +54,7 @@ const Cart = () => {
             <div className='flex row pt-2 pb-2'>
               <img className='w-5/12 ' src={item.img} />
               <div>
-                <p>{item.title}</p>
+                <p>{item.name}</p>
                 <p>${item.price}</p>
                 <p>Quantity: {item.qty}</p>
                 <button onClick={() => removeItem(item.coffee)}>Remove</button>

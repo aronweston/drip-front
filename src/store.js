@@ -8,6 +8,7 @@ import {
 } from './reducers/coffeeReducer';
 import { cartReducer } from './reducers/cartReducer';
 import {
+  confirmedOrderReducer,
   createOrderReducer,
   stripeSecretReducer,
   // stripeSecretReducer,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   order: createOrderReducer,
   stripe: stripeSecretReducer,
+  confirmedOrder: confirmedOrderReducer,
 });
 
 const getUserFromLS = localStorage.getItem('user')
@@ -29,6 +31,10 @@ const getUserFromLS = localStorage.getItem('user')
 
 const getDeliveryFromLS = localStorage.getItem('delivery')
   ? JSON.parse(localStorage.getItem('delivery'))
+  : {};
+
+const getConfirmedOrderFromLS = localStorage.getItem('confirmedOrder')
+  ? JSON.parse(localStorage.getItem('confirmedOrder'))
   : {};
 
 const getCartItemsFromLS = localStorage.getItem('cartItems')
@@ -47,6 +53,7 @@ const initialState = {
     totalPrice: getPriceFromLS,
     // delivery: getDeliveryFromLS,
   },
+  confirmedOrder: getConfirmedOrderFromLS,
 };
 
 const middleware =

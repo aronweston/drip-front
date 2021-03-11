@@ -35,9 +35,18 @@ export const Error = ({ children }) => {
   );
 };
 
+export const Alert = ({ children, variant }) => {
+  return (
+    <div
+      className={`-mx-3 md:flex mb-6 text-center bg-${variant}-400 rounded py-3 px-4 mb-3 text-white`}>
+      {children}
+    </div>
+  );
+};
+
 export const Loader = ({ children }) => {
   return (
-    <div className='-mx-3 md:flex mb-6 text-center bg-green-400 rounded py-3 px-4 mb-3 text-white'>
+    <div className='-mx-3 md:flex text-center bg-green-400 rounded py-3 px-4 text-white'>
       {children}
     </div>
   );

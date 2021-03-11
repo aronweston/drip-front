@@ -2,6 +2,7 @@ import {
   ORDER_ADD_DELIVERY_FAIL,
   ORDER_ADD_DELIVERY_REQUEST,
   ORDER_ADD_DELIVERY_SUCCESS,
+  ORDER_CONFIRM_FAIL,
   ORDER_CONFIRM_REQUEST,
   ORDER_CONFIRM_SUCCESS,
   ORDER_CREATE_FAIL,
@@ -17,8 +18,6 @@ export const stripeSecretReducer = (state = {}, action) => {
     case ORDER_GET_SECRET_REQUEST:
       return { loading: true, stripe: {} };
     case ORDER_GET_SECRET_SUCCESS:
-      const secret = action.payload;
-      console.log(secret);
       return { loading: false, success: true, secret: action.payload };
     case ORDER_GET_SECRET_FAIL:
       return { loading: false, error: action.payload };
@@ -28,7 +27,7 @@ export const stripeSecretReducer = (state = {}, action) => {
 };
 
 export const createOrderReducer = (
-  state = { confirmedOrder: {}, order: {}, delivery: {} },
+  state = { order: {}, delivery: {} },
   action
 ) => {
   switch (action.type) {
@@ -39,15 +38,24 @@ export const createOrderReducer = (
     case ORDER_ADD_DELIVERY_FAIL:
       return { loading: false, error: action.payload };
     case ORDER_CREATE_REQUEST:
-      return { loading: true, order: {} };
+      return { loading: true };
     case ORDER_CREATE_SUCCESS:
       return { loading: true, order: action.payload };
     case ORDER_CREATE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const confirmedOrderReducer = (state = {}, action) => {
+  switch (action.type) {
     case ORDER_CONFIRM_REQUEST:
-      return { loading: true, confirmedOrder: {} };
+      return { loading: true, order: {} };
     case ORDER_CONFIRM_SUCCESS:
-      return { loading: false, success: true, confirmedOrder: action.payload };
+      return { loading: false, success: true, order: action.payload };
+    case ORDER_CONFIRM_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

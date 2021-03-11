@@ -39,28 +39,3 @@ export const addTotalPrice = (totalPrice) => async (dispatch) => {
   });
   localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
 };
-
-export const addDelivery = (delivery) => async (dispatch) => {
-  try {
-    dispatch({
-      type: CART_ADD_DELIVERY,
-      payload: delivery,
-    });
-
-    dispatch({
-      type: ORDER_ADD_DELIVERY_REQUEST,
-    });
-
-    dispatch({
-      type: ORDER_ADD_DELIVERY_SUCCESS,
-      payload: delivery,
-    });
-  } catch (error) {
-    dispatch({
-      type: ORDER_ADD_DELIVERY_FAIL,
-      payload: error.message,
-    });
-  }
-
-  localStorage.setItem('delivery', JSON.stringify(delivery));
-};
