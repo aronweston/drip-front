@@ -1,6 +1,7 @@
 import {
   CART_ADD_ITEM,
   CART_ADD_TOTAL_PRICE,
+  CART_CLEAR_ALL_ITEMS,
   CART_REMOVE_ITEM,
 } from '../constants/cartConstants';
 
@@ -21,16 +22,15 @@ export const cartReducer = (
       } else {
         return { cartItems: [...state.cartItems, newItem] };
       }
-    // return { cartItems: [...state.cartItems, newitem] };
     case CART_REMOVE_ITEM:
       const id = action.payload;
-      //search through and filter the products that don't match the id
-      // console.log(id);
       const filter = state.cartItems.filter((item) => item.coffee !== id);
       return { cartItems: filter };
     case CART_ADD_TOTAL_PRICE:
       const price = action.payload;
       return { ...state, totalPrice: price };
+    case CART_CLEAR_ALL_ITEMS:
+      return { cartItems: [] };
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import {
   CART_ADD_DELIVERY,
   CART_ADD_ITEM,
   CART_ADD_TOTAL_PRICE,
+  CART_CLEAR_ALL_ITEMS,
   CART_REMOVE_ITEM,
 } from '../constants/cartConstants';
 import {
@@ -38,4 +39,12 @@ export const addTotalPrice = (totalPrice) => async (dispatch) => {
     payload: totalPrice,
   });
   localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+};
+
+export const clearCart = () => async (dispatch) => {
+  dispatch({
+    type: CART_CLEAR_ALL_ITEMS,
+  });
+  localStorage.removeItem('cartItems');
+  localStorage.removeItem('totalPrice');
 };

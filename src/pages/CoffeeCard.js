@@ -49,19 +49,29 @@ const CoffeeCard = ({ coffee }) => {
 
           <div className='flex item-center justify-between mt-3'>
             <div className='inline-flex'>
-              <span className='mr-2 p-0 inline-block leading-{0}'>{qty}</span>
-              <QtyButton
-                el='plus'
-                disabled={qty >= coffee.stockQty}
-                onClick={() => setQty(qty + 1)}
-                width='20px'
-              />
-              <QtyButton
-                el='minus'
-                disabled={qty === 0}
-                onClick={() => setQty(qty - 1)}
-                width='20px'
-              />
+              {coffee.stockQty <= 0 ? (
+                <span className='px-3 py-2 text-white text-xs font-bold uppercase rounded bg-red-200'>
+                  OUT OF STOCK
+                </span>
+              ) : (
+                <>
+                  <span className='mr-2 p-0 inline-block leading-{0}'>
+                    {qty}
+                  </span>
+                  <QtyButton
+                    el='plus'
+                    disabled={qty >= coffee.stockQty}
+                    onClick={() => setQty(qty + 1)}
+                    width='20px'
+                  />
+                  <QtyButton
+                    el='minus'
+                    disabled={qty === 0}
+                    onClick={() => setQty(qty - 1)}
+                    width='20px'
+                  />
+                </>
+              )}
             </div>
 
             <button

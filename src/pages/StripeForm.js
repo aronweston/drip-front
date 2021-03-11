@@ -44,7 +44,6 @@ export const StripeForm = () => {
   };
 
   //redux state
-
   const stripeState = useSelector((state) => state.stripe);
   const { secret } = stripeState;
 
