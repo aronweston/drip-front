@@ -35,10 +35,11 @@ const Register = ({ history }) => {
       <Container>
         <form
           onSubmit={handleSubmit}
-          className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2'>
+          className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4 flex flex-col my-2'>
+          <h1 className='text-3xl pt-5 pb-5 font-bold'>Sign Up</h1>
           {loading && <Loader>Loading...</Loader>}
           {error && <Error>{error}</Error>}
-          <div className='-mx-3 md:flex mb-6'>
+          <div className='-mx-3 md:flex mb-3'>
             <div className='md:w-full px-3'>
               <label
                 className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'
@@ -58,7 +59,7 @@ const Register = ({ history }) => {
               <p className='text-grey-dark text-xs italic'></p>
             </div>
           </div>
-          <div className='-mx-3 md:flex mb-6'>
+          <div className='-mx-3 md:flex mb-3'>
             <div className='md:w-full px-3'>
               <label
                 className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'

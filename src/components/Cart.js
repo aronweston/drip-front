@@ -44,7 +44,7 @@ const Cart = () => {
   };
 
   return (
-    <div className='inset-y-69.96 right-5 bg-white fixed rounded shadow-lg h-4/5 w-2/5 overflow-auto'>
+    <div className='inset-y-100 right-5 bg-white fixed rounded shadow-lg h-4/5 w-2/5 overflow-auto cart-top'>
       <div className='relative flex flex-col p-4'>
         {!user && <h2>Login or sign up to purchase coffees</h2>}
         {cartItems.length === 0 && <h2>Your cart is empty</h2>}
@@ -61,12 +61,13 @@ const Cart = () => {
               </div>
             </div>
           ))}
+
+        <button
+          onClick={checkout}
+          className='bg-red-500 p-4 rounded w-full text-white sticky bottom-0'>
+          Checkout • Subtotal: ${totalPrice}
+        </button>
       </div>
-      <button
-        onClick={checkout}
-        className='bg-red-500 p-4 rounded w-full text-white sticky bottom-0'>
-        Checkout • Subtotal: ${totalPrice}
-      </button>
     </div>
   );
 };

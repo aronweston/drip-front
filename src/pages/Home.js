@@ -13,8 +13,6 @@ const Home = () => {
       <Helmet>
         <title>Australian Subscription Coffee | drip </title>
       </Helmet>
-      {loading && <Loader>Getting you caffeinated...</Loader>}
-      {/* <Cart /> */}
       <Hero />
       <AllCoffee />
     </>

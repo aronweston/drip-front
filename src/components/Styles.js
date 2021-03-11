@@ -61,6 +61,16 @@ export const Loader = ({ children }) => {
   );
 };
 
+export const CoffeeLoader = ({ children }) => {
+  return (
+    <div className='-mx-3 md:flex text-center bg-green-400 rounded h-screen px-4 text-white'>
+      <div className='container font-bold text-left text-2xl text-white mx-auto p-10'>
+        {children}
+      </div>
+    </div>
+  );
+};
+
 export const ProductGrid = ({ children }) => {
   return (
     <main class='p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5'>

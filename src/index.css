@@ -1,3 +1,7 @@
 .height-full {
     height: calc(100vh - 66.69px);
 }
+
+.cart-top {
+    top: 66.99px;
+}

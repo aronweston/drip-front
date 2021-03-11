@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCoffee } from '../actions/coffeeActions';
-import { ProductGrid } from '../components/Styles';
+import { ProductGrid, CoffeeLoader } from '../components/Styles';
 import CoffeeCard from './CoffeeCard';
 
 const AllCoffee = ({ history }) => {
@@ -14,9 +14,14 @@ const AllCoffee = ({ history }) => {
   }, []);
 
   return (
-    <ProductGrid>
-      {success && coffee.map((coffee) => <CoffeeCard coffee={coffee} />)}
-    </ProductGrid>
+    <>
+      {loading && (
+        <CoffeeLoader>On sec, getting you caffeinated...</CoffeeLoader>
+      )}
+      <ProductGrid>
+        {success && coffee.map((coffee) => <CoffeeCard coffee={coffee} />)}
+      </ProductGrid>
+    </>
   );
 };
 
