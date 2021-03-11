@@ -26,7 +26,6 @@ function App() {
         <Header />
         <Route path='/' exact component={Home} />
         <Route path='/checkout' component={Checkout} />
-
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/coffee/:id' component={SingleCoffee} />

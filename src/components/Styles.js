@@ -149,17 +149,20 @@ export const Hero = ({ title, colour }) => {
           </>
         ) : (
           <>
-            <h1 className='text-4xl'>Drip Coffee Co</h1>
-            <p>Subscription coffee. Always fresh.</p>{' '}
+            <h1 className='text-5xl font-bold mb-4'>Drip Coffee Co</h1>
+            <p>
+              Subscription coffee from quality local roasters, <br></br>all
+              around Australia.
+            </p>
           </>
         )}
-
-        <Button
-          to='/register'
-          txtColour='black'
-          bg='white'
-          text='Get Started'
-        />
+        <div className='flex'>
+          <Link
+            to='/register'
+            className='inline-flex items-center mt-4 px-3 py-2 text-black bg-white rounded font-bold'>
+            Get Started
+          </Link>
+        </div>
       </div>
     </section>
   );

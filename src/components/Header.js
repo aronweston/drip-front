@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='bg-gray-900 fixed w-full'>
+      <header className='bg-gray-900 fixed w-full top-0'>
         <div className='container mx-auto flex justify-between'>
           <NavLink
             activeClassName='text-white'
@@ -60,7 +60,7 @@ const Header = () => {
               <>
                 <NavLink
                   activeClassName='text-red'
-                  className='inline-flex items-center py-1 px-5 my-3 mx-3 text-black bg-white rounded'
+                  className='inline-flex items-center py-1 px-5 my-3 mx-3 text-black bg-white rounded font-bold'
                   to='/register'>
                   Sign Up
                 </NavLink>
@@ -79,7 +79,7 @@ const Header = () => {
             </span>
             <span
               onClick={() => showCart()}
-              onMouseEnter={() => setCart(true)}
+              // onMouseEnter={() => setCart(true)}
               // onMouseLeave={() => setCart(false)}
               activeClassName='text-red'
               className='inline-flex items-center py-1 px-1 my-3 text-white'>
