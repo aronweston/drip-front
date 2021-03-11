@@ -10,11 +10,11 @@ import {
 } from '../components/Styles';
 
 const Delivery = ({ onSubmit }) => {
-  const [address, setAddress] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [suburb, setSuburb] = useState('');
-  const [postCode, setPostCode] = useState('');
+  const [address, setAddress] = useState({});
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [suburb, setSuburb] = useState();
+  const [postCode, setPostCode] = useState();
   const [options, setOptions] = useState([
     '-',
     'NSW',
@@ -28,16 +28,18 @@ const Delivery = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const delivery = {
-      firstName,
-      lastName,
-      line1: address,
-      suburb,
-      postCode,
-      state: postalState,
-    };
+    console.log(address);
+    // const delivery = {
+    //   firstName,
+    //   lastName,
+    //   line1: address,
+    //   suburb,
+    //   postCode,
+    //   state: postalState,
+    // };
+    console.log(delivery);
     //here I call getDeliveryDetails
-    if (delivery) onSubmit(delivery);
+    // if (delivery) onSubmit(delivery);
   };
 
   const handleStateChange = (e) => {
@@ -54,8 +56,11 @@ const Delivery = ({ onSubmit }) => {
           <Label htmlFor='address-line-1'>Address</Label>
           <Input
             name='address'
-            placeholder=''
-            onChange={(e) => setAddress(e.target.value)}
+            placeholder='123 Batman Road'
+            onChange={(e) => {
+              setAddress([e.target.value, 'required']);
+              console.log(address);
+            }}
           />
         </FormCol>
       </FormRow>
@@ -103,6 +108,7 @@ const Delivery = ({ onSubmit }) => {
           />
         </FormCol>
       </FormRow>
+      <button>submit</button>
     </Form>
   );
 };

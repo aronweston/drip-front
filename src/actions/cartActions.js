@@ -4,6 +4,11 @@ import {
   CART_ADD_TOTAL_PRICE,
   CART_REMOVE_ITEM,
 } from '../constants/cartConstants';
+import {
+  ORDER_ADD_DELIVERY_FAIL,
+  ORDER_ADD_DELIVERY_REQUEST,
+  ORDER_ADD_DELIVERY_SUCCESS,
+} from '../constants/orderConstants';
 
 export const addToCart = (cartItems) => async (dispatch, getState) => {
   if (getState().login.user) {
@@ -36,9 +41,26 @@ export const addTotalPrice = (totalPrice) => async (dispatch) => {
 };
 
 export const addDelivery = (delivery) => async (dispatch) => {
-  dispatch({
-    type: CART_ADD_DELIVERY,
-    payload: delivery,
-  });
+  try {
+    dispatch({
+      type: CART_ADD_DELIVERY,
+      payload: delivery,
+    });
+
+    dispatch({
+      type: ORDER_ADD_DELIVERY_REQUEST,
+    });
+
+    dispatch({
+      type: ORDER_ADD_DELIVERY_SUCCESS,
+      payload: delivery,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_ADD_DELIVERY_FAIL,
+      payload: error.message,
+    });
+  }
+
   localStorage.setItem('delivery', JSON.stringify(delivery));
 };

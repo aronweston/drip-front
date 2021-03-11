@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import Delivery from './Delivery';
 import StripeForm from './StripeForm';
-
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
+const stripePromise = loadStripe(
+  'pk_test_51IQKncEXawQ3zSFqMyx5IgXbNgO3Vg5TpH5vSibV6Y7StRyLz5zjQahBy6G09k9RYdbUoe838y5fVESIsNeZtSwf00y5IUe2ke'
+);
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
@@ -20,7 +19,7 @@ const Checkout = () => {
           <StripeForm />
         </Elements>
       </section>
-      <section className='w-1/3 overflow-hidden bg-red-700 h-100 y-offset-66.95'>
+      <section className='w-1/3 overflow-auto bg-red-700 h-100 y-offset-66.95'>
         {cartItems.length === 0 && <h2>Your cart is empty</h2>}
         {cartItems &&
           cartItems.map((item) => (

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import API from '../config/api';
 import {
+  ORDER_CONFIRM_REQUEST,
+  ORDER_CONFIRM_SUCCESS,
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
@@ -8,41 +10,6 @@ import {
   ORDER_GET_SECRET_REQUEST,
   ORDER_GET_SECRET_SUCCESS,
 } from '../constants/orderConstants';
-
-//orderSuccess - post to order/success/:id
-// / const onSuccess = async () => {
-//   try {
-//     const { data } = await axios.post(`${API}/order/success`, {
-//       id: id,
-//     });
-//     console.log(data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// export const getOrderSecret = async (orderId) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: ORDER_GET_SECRET_REQUEST,
-//     });
-
-//     const { data } = await axios.get(`${API}/order/pay/${orderId}`);
-
-//     dispatch({
-//       type: ORDER_GET_SECRET_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: ORDER_GET_SECRET_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.response,
-//     });
-//   }
-// };
 
 export const createOrder = (cart) => async (dispatch, getState) => {
   try {
@@ -64,9 +31,43 @@ export const createOrder = (cart) => async (dispatch, getState) => {
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     });
+
+    //GET ORDER SECRET
+    dispatch({
+      type: ORDER_GET_SECRET_REQUEST,
+    });
+    const id = getState().order.order._id;
+    const secret = await axios.get(`${API}/order/pay/${id}`);
+
+    dispatch({
+      type: ORDER_GET_SECRET_SUCCESS,
+      payload: secret.data,
+    });
+
+    //CONFIRM ORDER
+    dispatch({
+      type: ORDER_CONFIRM_REQUEST,
+    });
+
+    const confirm = await axios.post(`${API}/order/success`, { id }, auth);
+
+    dispatch({
+      type: ORDER_CONFIRM_SUCCESS,
+      payload: confirm.data,
+    });
+
+    localStorage.setItem('confirmedOrder', JSON.stringify(confirm.data));
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.response,
+    });
+
+    dispatch({
+      type: ORDER_GET_SECRET_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

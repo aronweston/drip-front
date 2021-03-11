@@ -9,6 +9,7 @@ import {
 import { cartReducer } from './reducers/cartReducer';
 import {
   createOrderReducer,
+  stripeSecretReducer,
   // stripeSecretReducer,
 } from './reducers/orderReducer';
 
@@ -18,8 +19,8 @@ const reducer = combineReducers({
   allCoffee: coffeeListReducer,
   singleCoffee: coffeeSingleReducer,
   cart: cartReducer,
-  // secret: stripeSecretReducer,
   order: createOrderReducer,
+  stripe: stripeSecretReducer,
 });
 
 const getUserFromLS = localStorage.getItem('user')
@@ -44,7 +45,7 @@ const initialState = {
   cart: {
     cartItems: getCartItemsFromLS,
     totalPrice: getPriceFromLS,
-    delivery: getDeliveryFromLS,
+    // delivery: getDeliveryFromLS,
   },
 };
 
