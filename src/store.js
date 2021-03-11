@@ -13,12 +13,14 @@ import {
   stripeSecretReducer,
   // stripeSecretReducer,
 } from './reducers/orderReducer';
+import { roasterSingleReducer } from './reducers/roasterReducer';
 
 const reducer = combineReducers({
   register: userRegisterReducer,
   login: userLoginReducer,
   allCoffee: coffeeListReducer,
   singleCoffee: coffeeSingleReducer,
+  singleRoaster: roasterSingleReducer,
   cart: cartReducer,
   order: createOrderReducer,
   stripe: stripeSecretReducer,

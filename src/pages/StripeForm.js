@@ -110,7 +110,12 @@ export const StripeForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h1 className='text-2xl pt-5 pb-5 text-center'>Delivery</h1>
+      <FormRow>
+        <FormCol>
+          <h1 className='text-4xl pt-5 pb-5 font-bold'>Checkout</h1>
+          <span className='text-xl pb-5 font-bold'>Delivery</span>
+        </FormCol>
+      </FormRow>
       <FormRow>
         <FormCol>
           <Label htmlFor='address-line-1'>Address</Label>
@@ -176,9 +181,18 @@ export const StripeForm = () => {
           {stripeAlert.error && <Error>{stripeAlert.message}</Error>}
         </FormCol>
       </FormRow>
-      <CardElement />
-      <button disabled={!stripe} className={`bg-red-500 p-4 w-full text-white`}>
-        pay now
+      <FormRow>
+        <FormCol>
+          <div className='pt-1 pb-5 mb-5'>
+            <h2 className='text-xl pb-5 font-bold'>Payment</h2>
+            <CardElement />
+          </div>
+        </FormCol>
+      </FormRow>
+      <button
+        disabled={!stripe}
+        className='bg-red-700 p-4 w-full font-bold text-1xl text-white sticky bottom-0 mt-10'>
+        Order Now • ${totalPrice}
       </button>
     </Form>
   );

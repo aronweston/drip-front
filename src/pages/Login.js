@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Loader, Error } from '../components/Styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../actions/userActions';
+import { Helmet } from 'react-helmet';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -25,6 +26,9 @@ const Login = ({ history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Login | drip </title>
+      </Helmet>
       <Container>
         <div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2'>
           {loading && <Loader>Loading...</Loader>}

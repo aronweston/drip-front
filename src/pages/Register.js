@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Error, Loader } from '../components/Styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { register } from '../actions/userActions';
+import { Helmet } from 'react-helmet';
 
 const Register = ({ history }) => {
   const [name, setName] = useState('');
@@ -28,6 +29,9 @@ const Register = ({ history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Sign Up | drip </title>
+      </Helmet>
       <Container>
         <form
           onSubmit={handleSubmit}

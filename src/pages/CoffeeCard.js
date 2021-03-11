@@ -32,7 +32,9 @@ const CoffeeCard = ({ coffee }) => {
           alt={`${coffee.title} by ${coffee.roaster.name}`}
         />
         <div class='px-6 py-4'>
-          <div class='font-bold text-xl mb-2'>{coffee.title}</div>
+          <a href={`/coffee/${coffee._id}`}>
+            <div class='font-bold text-xl mb-2'>{coffee.title}</div>
+          </a>
 
           <div className='flex pt-2 pb-2'>
             <span class='text-gray-700 text-base pr-2'>${coffee.price}</span>

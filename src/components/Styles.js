@@ -2,6 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { login } from '../actions/userActions';
+import { Helmet } from 'react-helmet';
+
+export const pageTitle = ({ children }) => {
+  return (
+    <Helmet>
+      <title>{children}</title>
+    </Helmet>
+  );
+};
 
 //Container
 export const Container = ({ children }) => {
@@ -135,7 +144,12 @@ export const Hero = ({ title, colour }) => {
           </>
         )}
 
-        <Button to='/signup' txtColour='black' bg='white' text='Get Started' />
+        <Button
+          to='/register'
+          txtColour='black'
+          bg='white'
+          text='Get Started'
+        />
       </div>
     </section>
   );
@@ -268,7 +282,7 @@ export const Form = ({ onSubmit, children }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className='bg-white rounded  pb- mb-4 flex flex-col my-'>
+      className='bg-white rounded flex flex-col height-full'>
       {children}
     </form>
   );

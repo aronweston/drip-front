@@ -3,23 +3,25 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Container, Loader, ProductCard } from '../components/Styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSingleCoffee } from '../actions/coffeeActions';
+import { getSingleRoaster } from '../actions/roasterActions';
 
 const SingleCoffee = ({ history }) => {
   const dispatch = useDispatch();
-  const singleCoffee = useSelector((state) => state.singleCoffee);
-  const { coffee, loading, success } = singleCoffee;
+  const singleRoaster = useSelector((state) => state.singleRoaster);
+  const { roaster, loading, success } = singleRoaster;
 
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getSingleCoffee(id));
+    dispatch(getSingleRoaster(id));
   }, []);
 
   return (
     <div>
       <Helmet>
-        <title>{coffee && coffee.title}</title>
+        <title>
+          {roaster && roaster.name}//{roaster.location}
+        </title>
       </Helmet>
       {loading && <Loader>Getting you caffeinated...</Loader>}
       {/* {success &&
