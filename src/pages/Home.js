@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AllCoffee from './AllCoffee';
 import Cart from '../components/Cart';
 import { Helmet } from 'react-helmet';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const coffee = useSelector((state) => state.allCoffee);
@@ -15,6 +16,7 @@ const Home = () => {
       </Helmet>
       <Hero />
       <AllCoffee />
+      <Footer />
     </>
   );
 };

@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import API from './config/api';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  withRouter,
+  Route,
+} from 'react-router-dom';
 //components
+
 import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';

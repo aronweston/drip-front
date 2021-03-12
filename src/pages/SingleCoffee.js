@@ -44,7 +44,6 @@ const SingleCoffee = ({ history }) => {
       <Helmet>
         <title>{coffee && coffee.title}</title>
       </Helmet>
-
       <div className='main-top'>
         {loading && (
           <CoffeeLoader>
