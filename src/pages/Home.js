@@ -16,7 +16,6 @@ const Home = () => {
       </Helmet>
       <Hero />
       <AllCoffee />
-      <Footer />
     </>
   );
 };
